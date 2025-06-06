@@ -1,0 +1,1 @@
+import{_ as e,c as o,o as t}from"./index-CajgkqGP.js";const c={};function i(s,u){return t(),o("div",null,"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus in cumque ullam a, nesciunt natus voluptatum atque non eos quae aut odio doloribus officia velit vero, quo ab consectetur eum. pp")}const n=e(c,[["render",i]]);export{n as default};
