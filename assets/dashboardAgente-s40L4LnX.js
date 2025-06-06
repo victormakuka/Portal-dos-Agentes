@@ -1,0 +1,1 @@
+import{_ as a}from"./MenuAgente-DG2-AQzC.js";import{c as o,a as t,d as r,F as s,o as n}from"./index-Dxxj6c1-.js";const _={__name:"dashboardAgente",setup(l){return(m,e)=>(n(),o(s,null,[e[0]||(e[0]=t("div",{class:"text-center text-2xl font-bold text-orange-600 mt-4"}," Dashboard de subAgente ",-1)),t("main",null,[r(a)])],64))}};export{_ as default};
