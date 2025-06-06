@@ -1,23 +1,78 @@
 <template>
-<div class=" flex justify-center items-center h-screen border px-24"> 
-    <div class=" container bg-orange-600 w-96 h-90 sm:h-1/2 sm:w-96 sm:-m-18 flex items-center justify-center text-white  border  rounded-l-lg text-xl md:w-50 md:h-90 ">
-       <div class="font-bold ">  </div>
-    </div>
-    <div class="container bg-white-900 md:w-110 h-80 sm:h-1/2 md:h-90  border sm:m-18 rounded-r-lg border-orange-600 flex items-center justify-center flex-col w-sm p-4 m-16 ">
-         <div class="flex-col ">
  
-              <input type="number" placeholder="Entre com seu Id" class="border-1 border-orange-600 rounded-sm my-4 md:my-1 text-sm p-2 mx-24 w-80">
+  <div class="flex  justify-center items-center min-h-screen p-4 bg-white overflow-auto">
+    
+    <!-- Caixa geral -->
+    
+    <div class="flex divCaixa w-[320px] h-[350px] lg:w-[600px] lg:h-[450px] border border-orange-600 rounded-lg pr-8 justify-center items-center overflow-hidden shadow-xl">
+   
+      <!-- Bloco esquerdo -->
+       <div class=" lg:w-[400px] lg:h-[450px] divEsquerdo lg:bg-[#e64e03] text-white lg:mr-8 flex items-center justify-center text-xl text-center font-bold p-2">
+     ->
+      </div> 
 
-              <input type="text" placeholder="Senha enviada pelo seu Agente" class="border-1 border-orange-600 rounded-sm  md:my-4 text-sm sm: flex p-2 mx-24 w-80">
 
-            
-                    
-         </div>
+      <!-- Bloco direito (formulário) -->
+      <div class=" branca  bg-white  gap-4 ">
+        <div class="Inputes space-y-4">
+          <label class="text-gray-500 text-sm"  for="id">ID do agente</label>
+        <input
+        id="Id"
+          type="number"
+          placeholder="Entre com seu Id"
+          class="border border-orange-600 rounded-sm text-sm py-3  px-2 w-full "
+           v-model="Id"
+        />
+          <label class="text-gray-500 text-sm" for="senha">Senha</label>
+        <input
+        id="senha"
+          type="password"
+          placeholder="Senha enviada pelo seu Agente"
+          class="border border-orange-600 rounded-sm text-sm  py-3 px-2 w-full"
+         
+          v-model="senha"
+        />
+        <div class="text-end text-gray-500 text-sm">
+        <a href="" class="text-blue-800 hover:underline text-sm ml-24 ">Ainda não recebi a senha</a>
+        </div>
+        <input 
+             type="submit"
+             value="Entrar"
+             class="border rounded-sm bg-[#e64e03] mt-2 p-2 text-sm text-white w-full hover:bg-orange-600 shadow-sm"
+             v-on:click="Entrar()"
+             
+         />
+          </div>
+      </div>
+
     </div>
-</div>
+  </div>
 </template>
 
 <script>
-
+    export default{
+        data(){
+            return {
+               Id: '',
+               senha:''
+            };
+          
+        },
+         methods:{
+                Entrar(){
+                    if (this.Id === 123 && this.senha === "agente") {                  
+                           this.$router.push('/dashboardAgente')
+                    }
+                    
+                    else if (this.Id === 123 && this.senha === "adm") {
+                      this.$router.push('/Dashboard')
+                    }  else{
+                        alert("ID ou senha incorretos");
+                    }    
+                    
+                     
+                },
+        }
+        
+    }
 </script>
-
