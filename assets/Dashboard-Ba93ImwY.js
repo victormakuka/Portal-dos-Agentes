@@ -1,1 +1,0 @@
-import{_ as t}from"./Menu-DtzlYDWp.js";import{c as o,a as e,b as r,F as s,o as n}from"./index-DvwujywB.js";const _={__name:"Dashboard",setup(m){return(l,a)=>(n(),o(s,null,[a[0]||(a[0]=e("div",{class:"text-center text-2xl font-bold text-orange-600 mt-4"}," Dashboard do administrador ",-1)),e("main",null,[r(t)])],64))}};export{_ as default};
