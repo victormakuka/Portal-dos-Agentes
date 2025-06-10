@@ -55,6 +55,8 @@
 </template>
 
 <script>
+
+ import Menu from '@/components/adm/menu.vue';
 export default {
   name: 'CadastroAgente',
  
@@ -69,6 +71,9 @@ export default {
         endereco: ''
       }
     };
+  },
+  components:{
+    Menu
   },
   methods: {
     handleSubmit() {

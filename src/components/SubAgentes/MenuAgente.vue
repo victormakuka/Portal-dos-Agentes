@@ -13,9 +13,10 @@ const router = useRouter(); // Instancia do roteador
 
 
 <template>
-
+<div class="relative">
+   
   <router-view />
-  <div class="flex h-screen">
+  <div class="flex h-screen relative">
     <!-- Botão hambúrguer fixo no canto esquerdo -->
     <button
       @click="menuAberto = !menuAberto"
@@ -41,20 +42,22 @@ const router = useRouter(); // Instancia do roteador
         <li><a href="#" class="block hover:text-orange-100 transition">Relatórios</a>
         </li>
       </ul>
+ 
     </div>
     <!-- Overlay -->
-    <div
+    <!-- <div
       v-if="menuAberto"
       class="fixed inset-0  z-0"
-      ></div>
+      ></div> -->
     <div
       v-if="menuAberto"
-      class="fixed inset-0  z-0"
+    class="fixed inset-0"
       @click="menuAberto = false"
     ></div>
       <slot />
-    </div>
-
+    
+   </div>
+</div>
 
   
 </template>
