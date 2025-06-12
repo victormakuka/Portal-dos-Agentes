@@ -23,9 +23,9 @@ const router = createRouter({
     component: () => import('@/components/adm/Dashboard.vue')
     },
     {
-      path: '/Agentes',
-      name: 'Agentes',
-      component: () => import('@/components/adm/Agentes.vue')
+      path: '/AdicionarAgentes',
+      name: 'AdicionarAgentes',
+      component: () => import('@/components/adm/AdicionarAgentes.vue')
     },
     {
       path: '/dashboardAgente',
@@ -36,7 +36,14 @@ const router = createRouter({
       path: '/Pedido',
       name: 'Pedido',
       component: () => import('@/components/SubAgentes/Pedido.vue')
+    },
+    {
+      path: '/editarAgentes',
+      name: 'editarAgentes',
+      component: () => import('@/components/adm/EditarAgentes.vue')
     }
+
+    
   ],
 })
 
