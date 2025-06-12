@@ -31,7 +31,7 @@
             <div class="col-1 row-3 whitespace-nowrap ml-10">
                 <span>Nº de Telefone</span>
         
-                <p class="text-gray-500">{{agente.numero}}</p>
+                <p class="text-gray-500">{{agente.telefone}}</p>
             </div>
              <div class="col-1 row-4 whitespace-nowrap ml-10">
                 E-mail
@@ -45,7 +45,7 @@
                 <!-- Eliminar -->
                 
           <div class="pt-4 col-2 whitespace-nowrap">
-            <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-400 cursor-pointer ">Eliminar</button>
+            <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-400 cursor-pointer " @click="eliminarAgente(agente.id)">Eliminar</button>
           </div>
                 <!-- Editar -->
                <div class="pt-4 row-6 col-3 whitespace-nowrap">
@@ -63,17 +63,36 @@
      </div>
 </template>
 
-<script>
-export default {
-    data() {
-        
-    },
-    props:['agente'],
-    methods: {
-        fecharPerfil() {
-            this.$emit('fechar-perfil');
-        },
-        
+<script setup>
+    import router from '@/router'
+    import { deleteAgente } from '../../../Servicos/Delete'
+    defineProps(['agente'])
+    const emit = defineEmits(['fechar-perfil'])
+    const fecharPerfil = () => {
+        emit('fechar-perfil')
     }
-}
+    const eliminarAgente = async(id) => {
+        if (!confirm('Tem certeza que deseja eliminar este agente? Esta ação não pode ser desfeita.')) 
+        {
+            return
+        }
+        try
+        {
+            const result = await deleteAgente(id)
+            if(!result){
+                alert('não autenticado, por favor faça login novamente')
+                router.push('/')
+            }
+            else{
+                alert('Agente eliminado com sucesso!')
+                router.push('/verAgentes')
+            }
+            
+        }
+        catch (error)
+        {
+            alert('Erro ao eliminar agente: ' + error.response.data)
+            console.error('Erro ao eliminar agente:', error)
+        }
+    }
 </script>

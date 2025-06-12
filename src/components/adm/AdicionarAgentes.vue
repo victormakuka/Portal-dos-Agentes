@@ -1,50 +1,37 @@
+<script setup>
+import { reactive } from 'vue'
+import Menu from '@/components/adm/Menu.vue'
 
-<script>
-import Menu from '@/components/adm/Menu.vue';
-export default {
-  name: 'CadastroAgente',
- 
-  data() {
-    return {
-      form: {
-        nome: '',
-        id: '',
-        senha: '',
-        email: '',
-        telefone: '',
-        endereco: ''
-      }
-    };
-  },
-  components:{
-  Menu
-  },
-  methods: {
-    handleSubmit() {
-      const camposValidos = Object.values(this.form).every(campo => campo.trim() !== '');
-      if (camposValidos) {
-        alert('Agente cadastrado com sucesso!');
-        this.form = {
-          nome: '',
-          id: '',
-          senha: '',
-          email: '',
-          telefone: '',
-          endereco: ''
-        };
-      } else {
-        alert('Por favor, preencha todos os campos corretamente.');
-      }
-    }
+// Objeto reativo para o formulário
+const form = reactive({
+  nome: '',
+  id: '',
+  senha: '',
+  email: '',
+  telefone: '',
+  endereco: ''
+})
+
+function handleSubmit() {
+  const camposValidos = Object.values(form).every(campo => campo.trim() !== '')
+  if (camposValidos) {
+    alert('Agente cadastrado com sucesso!')
+    // Resetar formulário
+    form.nome = ''
+    form.id = ''
+    form.senha = ''
+    form.email = ''
+    form.telefone = ''
+    form.endereco = ''
+  } else {
+    alert('Por favor, preencha todos os campos corretamente.')
   }
-};
+}
 </script>
 
 
 <template>
-  
-    
-    
+
   <div class="bg-gray-100 text-black font-sans min-h-screen">
     <!-- Cabeçalho -->
       <div class="m-0 py-4 px-12 border  border-gray-300 shadow-sm w-[395px]"> <div class="text-md font-bold ">Adicionar Novos Subagentes</div> <div class="text-sm text-gray-600 whitespace-nowrap ">Cadastre novos subagentes de forma rápida e segura.</div></div>
