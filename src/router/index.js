@@ -38,9 +38,14 @@ const router = createRouter({
       component: () => import('@/components/SubAgentes/Pedido.vue')
     },
     {
+      path: '/verAgentes',
+      name: 'verAgentes',
+      component: () => import('@/components/adm/verAgentes.vue')
+    },
+    {
       path: '/editarAgentes',
-      name: 'editarAgentes',
-      component: () => import('@/components/adm/EditarAgentes.vue')
+      name:'editarAgentes',
+      component: () => import('@/components/adm/edita-agentes.vue')
     }
 
     

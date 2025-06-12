@@ -56,42 +56,61 @@
  </main>
 </template>
 
-<script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import alerta from '@/components/alerta.vue'
-import api from './Requisições/Urlapi'
-import { getData } from '../../Servicos/GetData'
+<script>
+import alerta from '@/components/alerta.vue';
+import api from './Requisições/Urlapi';
+import {getData} from '../../Servicos/GetData';
 
-const Id = ref('')
-const senha = ref('')
-const AparecerAlerta = ref(false)
 
-const router = useRouter()
+    export default{
+        data(){
+            return {
+               Id: '',
+               senha:'',
+               AparecerAlerta: false
+             
+            };
+          
+        },
+        components: {
+            alerta
+          },
+   
+         methods:{
+                Entrar(){
 
-async function Entrar() {
-  try {
-    const response = await api.post('api/Auth', {
-      agenteId: Id.value,
-      senha: senha.value
-    })
 
-    const token = response.data
-    const user = await getData(token)
-    
-    if(user.role === "adm")
-    router.push('/Dashboard')
-  else
-  router.push('/dashboardAgente')
+                   if(this.Id === 123 && this.senha ==='adm'){
+                            this.AparecerAlerta = true;
+                           this.$router.push('/Dashboard')
+                } else if(this.Id === 123 && this.senha ==="agente"){
+                      this.AparecerAlerta = true;
+                           this.$router.push('/dashboardAgente')
+                }else{
+                  alert("Dados Inválidos!")
+                }
 
-    sessionStorage.setItem('AcessToken', token.acessToken)
-    localStorage.setItem('refreshToken', token.refreshToken)
 
-    AparecerAlerta.value = true
-  } catch (error) {
-    console.error(error)
-    AparecerAlerta.value = false
-    alert("Dados incorretos!")
-  }
-}
+                //Requisição para Login
+                  // api.post('api/Auth',{
+                  //   agenteId: this.Id,
+                  //   senha: this.senha
+                  // }).then((response) => {
+                  //   const token = response.data;
+                  //   let dados = getData(token);
+                  //   this.AparecerAlerta = true;
+                  //  this.$router.push('/Dashboard')
+                    
+                  //   console.log(token);
+                  // }).catch((error) => {
+                  //   console.error(error);
+                  //   this.AparecerAlerta = false;
+                  //   alert("dados incorretos!")
+                  // });       
+               
+                },
+                
+        }
+        
+    }
 </script>

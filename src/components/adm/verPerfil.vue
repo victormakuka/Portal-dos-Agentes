@@ -22,8 +22,8 @@
                 </svg>
                 <div class="col-3 w-[1px] row-2 whitespace-nowrap mb-[5px] ">
                    <div class=" text-black text-md">
-                      Victor Makuka
-                      <p>0815</p>
+                      <span>{{ agente.nome }}</span>
+                      <p>{{ agente.id }}</p>
                    </div>
             </div>
 
@@ -31,15 +31,15 @@
             <div class="col-1 row-3 whitespace-nowrap ml-10">
                 <span>Nº de Telefone</span>
         
-                <p class="text-gray-500">939 399 825</p>
+                <p class="text-gray-500">{{agente.numero}}</p>
             </div>
              <div class="col-1 row-4 whitespace-nowrap ml-10">
                 E-mail
-                <p class="mb-[14px] text-gray-500">victormakuka1@gmail.com</p>
+                <p class="mb-[14px] text-gray-500">{{ agente.email }}</p>
             </div>
              <div class="col-3 row-3 whitespace-nowrap mt-5 px-4">
                 Endereço
-                <p class="mb-[14px] text-gray-500">Cacuaco</p>
+                <p class="mb-[14px] text-gray-500">{{ agente.endereco }}</p>
             </div>
             <div class="flex ml-[-40px] space-x-4 row-5 col-3 whitespace-nowrap mt-5 ">
                 <!-- Eliminar -->
@@ -49,9 +49,13 @@
           </div>
                 <!-- Editar -->
                <div class="pt-4 row-6 col-3 whitespace-nowrap">
-            <button type="submit" class="bg-blue-700 text-white px-2 py-1 rounded-md hover:bg-blue-800 cursor-pointer">Editar</button>
+                    <button type="submit" class="bg-blue-700 text-white px-2 py-1 rounded-md hover:bg-blue-800 cursor-pointer">
+                        <router-link to="/editarAgentes">Editar</router-link>
+                     
+                </button>
           </div>
             </div>
+            
         </div>
     </div>
     </div>
@@ -64,13 +68,12 @@ export default {
     data() {
         
     },
+    props:['agente'],
     methods: {
         fecharPerfil() {
             this.$emit('fechar-perfil');
         },
-        verPerfil() {
-            this.$emit('ver-perfil');
-        }
+        
     }
 }
 </script>
