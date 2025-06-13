@@ -16,9 +16,11 @@ function toggleSubmenu() {
 }
 
 const logout = () => {
-  sessionStorage.removeItem('accessToken');
-  localStorage.removeItem('refreshToken');
-  router.push('/');
+  if(confirm('Tem certeza que deseja terminar a sessão?')) {
+    sessionStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    router.push('/');
+  }
 };
 </script>
 

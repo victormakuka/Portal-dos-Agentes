@@ -22,7 +22,6 @@
             <tr>
               <th class="py-3">ID</th>
               <th>NOME</th>
-              <th>EMAIL</th>
             </tr>
           </thead>
           <tbody>
@@ -37,7 +36,6 @@
             >
               <td class="px-2 py-2">{{ agente.id }}</td>
               <td class="px-20">{{ agente.nome }}</td>
-              <td class="px-20">{{ agente.email }}</td>
             </tr>
           </tbody>
         </table>
