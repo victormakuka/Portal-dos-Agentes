@@ -1,25 +1,67 @@
 <script setup>
 import { reactive } from 'vue'
 import Menu from '@/components/adm/Menu.vue'
+import api from '../Requisições/Urlapi'
+import { auth } from '../../../Servicos/Auth'
+import { useRouter } from 'vue-router'
+
+
+const router = useRouter()
 
 // Objeto reativo para o formulário
 const form = reactive({
   nome: '',
   id: '',
-  senha: '',
   email: '',
   telefone: '',
   endereco: ''
 })
 
-function handleSubmit() {
+const Add = async () => {
+  try {
+    const token = sessionStorage.getItem('accessToken')
+
+    const formData = new FormData()
+    formData.append('agenteId', form.id)
+    formData.append('nome', form.nome)
+    formData.append('email', form.email)
+    formData.append('telefone', form.telefone)
+    formData.append('endereco', form.endereco)
+
+    const response = await api.post('/api/User', formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    })
+
+    console.log(response.data)
+    alert('Agente cadastrado com sucesso!')
+  } catch (error) {
+           if (error.response && error.response.status === 401) {
+           if(await auth()){
+               console.warn("Tentando cadastrar novamente após renovar o token...");
+               return await Add(); // Tenta novamente após renovar o token
+           } else {
+               console.warn("Falha ao renovar o token de acesso. Redirecionando para a página de login...");
+               return false
+           }
+        }
+        console.error("Erro ao obter a lista de usuários:", error);
+        throw error; // Lança o erro para ser tratado em outro lugar
+  }
+}
+
+
+
+async function handleSubmit() {
   const camposValidos = Object.values(form).every(campo => campo.trim() !== '')
   if (camposValidos) {
-    alert('Agente cadastrado com sucesso!')
+    if(!await Add())
+      router.push('/')
+
     // Resetar formulário
     form.nome = ''
     form.id = ''
-    form.senha = ''
     form.email = ''
     form.telefone = ''
     form.endereco = ''
@@ -56,12 +98,6 @@ function handleSubmit() {
             <label class="block font-medium mb-1">ID</label>
             <input v-model="form.id" type="text" class="w-full p-2 border border-orange-500 rounded-lg" placeholder="ID do agente" required />
           </div>
-
-          <div>
-            <label class="block font-medium mb-1">Senha</label>
-            <input v-model="form.senha" type="password" class="w-full p-2 border border-orange-500 rounded-lg" placeholder="Senha segura" required minlength="6" />
-          </div>
-
           <div>
             <label class="block font-medium mb-1">Email</label>
             <input v-model="form.email" type="email" class="w-full p-2 border border-orange-500 rounded-lg" placeholder="email@exemplo.com" required />
