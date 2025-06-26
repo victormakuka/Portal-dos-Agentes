@@ -1,63 +1,109 @@
+<script setup>
+import { reactive } from 'vue'
+import Menu from '@/components/adm/Menu.vue'
+import api from '../Requisições/Urlapi'
+import { auth } from '../../../Servicos/Auth'
+import { useRouter } from 'vue-router'
 
-<script>
-import Menu from '@/components/adm/Menu.vue';
-export default {
-  name: 'CadastroAgente',
- 
-  data() {
-    return {
-      form: {
-        nome: '',
-        id: '',
-        senha: '',
-        email: '',
-        telefone: '',
-        endereco: ''
+
+const router = useRouter()
+
+// Objeto reativo para o formulário
+const form = reactive({
+  nome: '',
+  id: '',
+  email: '',
+  telefone: '',
+  endereco: ''
+})
+
+const Add = async () => {
+  try {
+    const token = sessionStorage.getItem('accessToken')
+
+    const formData = new FormData()
+    formData.append('agenteId', form.id)
+    formData.append('nome', form.nome)
+    formData.append('email', form.email)
+    formData.append('telefone', form.telefone)
+    formData.append('endereco', form.endereco)
+
+    const response = await api.post('/api/User', formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       }
-    };
-  },
-  components:{
-  Menu
-  },
-  methods: {
-    handleSubmit() {
-      const camposValidos = Object.values(this.form).every(campo => campo.trim() !== '');
-      if (camposValidos) {
-        alert('Agente cadastrado com sucesso!');
-        this.form = {
-          nome: '',
-          id: '',
-          senha: '',
-          email: '',
-          telefone: '',
-          endereco: ''
-        };
-      } else {
-        alert('Por favor, preencha todos os campos corretamente.');
-      }
-    }
+    })
+
+    console.log(response.data)
+    alert('Agente cadastrado com sucesso!')
+  } catch (error) {
+           if (error.response && error.response.status === 401) {
+           if(await auth()){
+               console.warn("Tentando cadastrar novamente após renovar o token...");
+               return await Add(); // Tenta novamente após renovar o token
+           } else {
+               console.warn("Falha ao renovar o token de acesso. Redirecionando para a página de login...");
+               return false
+           }
+        }
+        console.error("Erro ao obter a lista de usuários:", error);
+        throw error; // Lança o erro para ser tratado em outro lugar
   }
-};
+}
+
+
+
+async function handleSubmit() {
+  const camposValidos = Object.values(form).every(campo => campo.trim() !== '')
+  if (camposValidos) {
+    if(!await Add())
+      router.push('/')
+
+    // Resetar formulário
+    form.nome = ''
+    form.id = ''
+    form.email = ''
+    form.telefone = ''
+    form.endereco = ''
+  } else {
+    alert('Por favor, preencha todos os campos corretamente.')
+  }
+}
 </script>
 
 
 <template>
-  
-    
-    
-  <div class="bg-gray-100 text-black font-sans min-h-screen">
+
+  <div class=" text-black font-sans min-h-screen">
     <!-- Cabeçalho -->
-      <div class="m-0 py-4 px-12 border  border-gray-300 shadow-sm w-[395px]"> <div class="text-md font-bold ">Adicionar Novos Subagentes</div> <div class="text-sm text-gray-600 whitespace-nowrap ">Cadastre novos subagentes de forma rápida e segura.</div></div>
+      <!-- Div do header-laranja -->
+      <div class="w-full h-30 fixed bg-orange-500  ">
+        <!-- Botão de voltar -->
+        <div class="text-xl font-bold px-3 py-2 flex flex-row text-white">
+           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mt-1.5"> 
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+          </svg>
+                Adicionar
+       </div>
+       <!-- Descrição do header -->
+        <div class="px-12">
+       <div class="text-sm text-white whitespace-nowrap">
+         Cadastre novos subagentes de forma rápida
+        </div>
+         <div class="text-sm text-white whitespace-nowrap ">e segura.</div>
+        </div>
+    </div>
 
     <!-- Formulário -->
 
-    <div class="">
-    <main class="flex justify-center items-start sm:items-center mt-10 px-4 py-12 px-8">
-      <div class="absolute top-6 left-0 z-10">
+    <div class="flex items-center justify-center h-full ">
+    <main class=" mt-10  py-24 px-8">
+      <div class="fixed py-2 top-6 left-0 z-10">
             <Menu/>
         </div>
-      <div class="bg-white p-6 sm:p-8 rounded-xl shadow-md w-full max-w-2xl border border-orange-500">
+      <div class="">
         <h2 class="text-2xl font-bold mb-6 text-center sm:text-left">Cadastrar novo agente</h2>
+        <div class="">
 
         <form class="space-y-4" @submit.prevent="handleSubmit">
           <div>
@@ -69,12 +115,6 @@ export default {
             <label class="block font-medium mb-1">ID</label>
             <input v-model="form.id" type="text" class="w-full p-2 border border-orange-500 rounded-lg" placeholder="ID do agente" required />
           </div>
-
-          <div>
-            <label class="block font-medium mb-1">Senha</label>
-            <input v-model="form.senha" type="password" class="w-full p-2 border border-orange-500 rounded-lg" placeholder="Senha segura" required minlength="6" />
-          </div>
-
           <div>
             <label class="block font-medium mb-1">Email</label>
             <input v-model="form.email" type="email" class="w-full p-2 border border-orange-500 rounded-lg" placeholder="email@exemplo.com" required />
@@ -94,6 +134,7 @@ export default {
             <button type="submit" class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 w-full sm:w-auto">Cadastrar</button>
           </div>
         </form>
+      </div>
       </div>
        
     </main>
