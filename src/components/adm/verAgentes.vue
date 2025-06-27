@@ -23,8 +23,14 @@
     <div class="py-8 top-6 left-0 z-10">
       <Menu />
     </div>
-  <div class="flex items-center justify-center p-2 h-2/3 w-full">
-    <div class=" whitespace-nowrap">
+  <div class="flex items-center justify-center p-12 h-full w-full">
+    
+
+    <div class="fixed py-2 top-6 left-0 z-10">
+      <Menu />
+    </div>
+
+    <div class="whitespace-nowrap">
       <div class="text-2xl text-orange-500 font-bold flex flex-row items-end">
         Todos Agentes
       </div>
@@ -39,6 +45,7 @@
           </thead>
           <tbody>
             <tr
+            
               v-for="(agente, index) in agentes"
               :key="agente.id"
               @click="abrirPerfil(agente)"
@@ -69,7 +76,8 @@
         </div>
       </div>
     </div>
-    </div>
+  </div>
+   
 
     <main v-if="aparecerPerfil">
       <verPerfil @fechar-perfil="aparecerPerfil = false" :agente="agenteSelecionado" />

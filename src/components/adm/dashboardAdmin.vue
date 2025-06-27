@@ -19,7 +19,7 @@ const buscarDados = async () => {
   <template>
 <div class="fixed h-30 w-full bg-orange-500 shadow-sm ">
 
-   <div class="flex flex-row items-center justify-center h-full pr-4">
+   <div class="flex flex-row items-center justify-center h-full p-4">
      <input 
      type="text"
      class="bg-white rounded-sm px-2 py-2 text-sm"
