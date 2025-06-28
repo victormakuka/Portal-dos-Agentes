@@ -56,11 +56,6 @@
  </main>
 </template>
 
-
-
-
-
-
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -94,17 +89,15 @@ async function Entrar() {
       agenteId: Id.value,
       senha: senha.value
     })
-
+    AparecerAlerta.value = true
     const token = response.data
     let role = getRoleFromJWT(token.acessToken)
+    sessionStorage.setItem('accessToken', token.acessToken)
+    localStorage.setItem('refreshToken', token.refreshToken)
     if(role == "adm")
       router.push('/dashboardAdmin')
     else
       router.push('/dashboardAgente')
-
-    sessionStorage.setItem('accessToken', token.acessToken)
-    localStorage.setItem('refreshToken', token.refreshToken)
-    AparecerAlerta.value = true
   } 
   catch (error) {
     console.error(error)

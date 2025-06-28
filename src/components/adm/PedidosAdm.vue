@@ -40,12 +40,13 @@
                     
                 > 
                     
-                     <td class=" py-2 text-sm">{{ pedido.id }}</td>
-                     <td class="px-1 whitespace-nowrap ">{{ pedido.nome }}</td>
-                     <td class="px-2 whitespace-nowrap">{{ pedido.valor }}</td>
+                     <td class=" py-2 text-sm">{{ pedido.pedidoId }}</td>
+                     <td class="px-1 whitespace-nowrap ">{{ pedido.userName }}</td>
+                     <td class="px-2 whitespace-nowrap">{{ pedido.valorPedido }}</td>
+                     <td class="px-2 whitespace-nowrap">{{ String(pedido.dataPedido).replace(/\.\d+Z$/,"") }}</td>
                      <td class="">
-                        <button class="bg-green-700 text-sm text-white px-1 py-1 rounded-md">
-                            Realizado
+                        <button :class="pedido.isAceite ? 'bg-green-700 text-sm text-white px-1 py-1 rounded-md' : 'bg-red-700 text-sm text-white px-1 py-1 rounded-md'">
+                              {{ pedido.isAceite ? 'Realizado' : 'Pendente' }}
                         </button>
                     </td>
                   
@@ -67,8 +68,14 @@
 <script setup>
 import Menu from './Menu.vue';
 import { ref } from 'vue'
+import { get } from '../../../Servicos/GetAllPedidos';
+import { onMounted } from 'vue'; 
 
- 
+onMounted(async () => {
+      const response = await get();
+      console.log(response);
+      pedidos.value = response;
+});
 
 const pedidos = ref([ 
         {
