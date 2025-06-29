@@ -82,10 +82,14 @@
     <main v-if="aparecerPerfil">
       <verPerfil @fechar-perfil="aparecerPerfil = false" :agente="agenteSelecionado" />
     </main>
+    <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-20 z-50" v-if="load">
+      <processo v-if="load" />
+    </div>
   </div>
 </template>
 
 <script setup>
+import processo from '../processo.vue'
 import { ref } from 'vue'
 import verPerfil from './verPerfil.vue'
 import Menu from './Menu.vue'
@@ -95,9 +99,12 @@ const aparecerPerfil = ref(false)
 const agenteSelecionado = ref(null)
 const agentes = ref([])
 
+let load = ref(false)
 onMounted(async() => {
+  load.value = true
   await getAllUsers()
   agentes.value = await getAllUsers()
+  load.value = false
 })
 
 function abrirPerfil(agente) {

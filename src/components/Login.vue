@@ -52,7 +52,7 @@
   </div>
 
  <main v-if="AparecerAlerta">
-  <alerta/>
+  <alerta :texto="alertaTexto" :cor="alertaCor" />
  </main>
 </template>
 
@@ -69,40 +69,42 @@ const senha = ref('')
 const AparecerAlerta = ref(false)
 const router = useRouter()
 
+const alertaTexto = ref('')
+const alertaCor = ref('bg-green-500')
+
 async function Entrar() {
-
-
-
-  //     if(this.Id === 123 && this.senha ==='adm'){
-  //                           this.AparecerAlerta = true;
-  //                          router.push('/dashboardAdmin')
-  //               } else if(this.Id === 123 && this.senha ==="agente"){
-  //                     this.AparecerAlerta = true;
-  //                          this.$router.push('/dashboardAdmin')
-  //               }else{
-  //                 alert("Dados Inválidos!")
-  // }
-
-
   try {
     const response = await api.post('api/Auth', {
       agenteId: Id.value,
       senha: senha.value
     })
-    AparecerAlerta.value = true
     const token = response.data
     let role = getRoleFromJWT(token.acessToken)
     sessionStorage.setItem('accessToken', token.acessToken)
     localStorage.setItem('refreshToken', token.refreshToken)
+    
+   if(response.status == 200) {
+  alertaTexto.value = 'LOGIN SUCEDIDO!'
+  alertaCor.value = 'bg-green-500'
+  AparecerAlerta.value = true
+
+  setTimeout(() => {
     if(role == "adm")
       router.push('/dashboardAdmin')
     else
       router.push('/dashboardAgente')
+  }, 1500) // 1.5 segundos de espera
+} else {
+    alertaTexto.value = 'Erro ao fazer login!'
+    alertaCor.value = 'bg-red-500'
+    AparecerAlerta.value = true
+}
   } 
   catch (error) {
     console.error(error)
-    AparecerAlerta.value = false
-    alert("Dados incorretos!")
+    alertaTexto.value = 'Dados incorretos!'
+    alertaCor.value = 'bg-red-500'
+    AparecerAlerta.value = true
   }
 }
 </script>
