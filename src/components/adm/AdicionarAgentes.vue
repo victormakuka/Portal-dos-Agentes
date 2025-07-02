@@ -56,7 +56,7 @@ const Add = async () => {
 async function handleSubmit() {
   const camposValidos = Object.values(form).every(campo => campo.trim() !== '')
   if (camposValidos) {
-    if(!await Add())
+    if(await Add())
       router.push('/')
 
     // Resetar formulário

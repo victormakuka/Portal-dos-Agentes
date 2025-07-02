@@ -1,160 +1,100 @@
 <template>
-    <div class="h-screen w-screen">
-     <!-- Div do header-laranja -->
-    <div class="h-30 w-full bg-orange-500  fixed">
-        <!-- Botão de voltar -->
-       <div class="text-xl font-bold px-3 py-2 flex flex-row text-white">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mt-1.5"> 
-  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-        </svg>
-        Pedidos
-       </div>
-
-       <!-- Descrição do header -->
-        <div class="px-12">
-        <div class="text-sm text-white whitespace-nowrap">
-           Responda apenas com um click todas as 
-           <div class="text-sm text-white whitespace-nowrap">
-            solicitações dos seus subagentes
-        </div>
-        </div>
-       </div>
-    </div>
-    <main class="fixed py-8">
-        <Menu/>
-    </main>
+  <div class="min-h-screen w-screen bg-gray-50">
+    <!-- Header fixo -->
+<header class="bg-orange-500 text-white px-4 py-4 fixed top-0 w-full z-10 shadow-md flex flex-col">
+  <!-- Linha com menu e título -->
+  <div class="flex items-center space-x-2 text-xl font-semibold">
+    <!-- Botão hamburguer dentro da div (mantida) -->
     
-      <div class=" text-orange-500 flex items-center justify-center h-full p-2 flex  flex-col w-full ">
-        <div class="flex items-start justify-start text-xl w-full">
-            Pedidos
-        </div>
-    <div>
-        <div class="max-h-[400px] overflow-y-auto">
-        <table class=" table-auto ">
-            <tbody>
-                <tr 
-                    v-for="(pedido, index) in pedidos"
-                    :key="pedido.id"
-                    :class="['cursor-pointer hover:opacity-80 ', 
-                    index % 2 === 0 ? ' text-orange-500' : 'text-orange-500']"
-                    
-                > 
-                    
-                     <td class=" py-2 text-sm">{{ pedido.id }}</td>
-                     <td class="px-1 whitespace-nowrap ">{{ pedido.nome }}</td>
-                     <td class="px-2 whitespace-nowrap">{{ pedido.valor }}</td>
-                     <td class="">
-                        <button class="bg-green-700 text-sm text-white px-1 py-1 rounded-md">
-                            Realizado
-                        </button>
-                    </td>
-                  
-               
-               </tr>
-               
-                <!-- <td class="px-2">2123</td>
-                    <td class="px-2">Victor Makuka</td>
-                    <td class="px-2">12.000kz</td>
-                    <td><button class="bg-green-700 text-sm text-white px-1 py-1 rounded-md">Realizado</button></td> -->
-            </tbody>
-        </table>
-    </div> 
+    <!-- Título -->
+  </div>
+
+  <!-- Descrição abaixo -->
+  <p class="text-sm pl-1 mt-1"
+  style="margin-left: 25px; ">Responda com um clique todas as solicitações dos seus subagentes</p>
+</header>
+    <div class="fixed py-2 top-2 left-0 z-10">
+      <Menu />
     </div>
-</div>
-</div>
+
+
+    <!-- Espaço após header -->
+    <main class="pt-24 px-4 pb-16">
+      <!-- Componente de menu (reposicionado corretamente) -->
+      <span style="font-weight: bold; margin-left: 26px; ">Pedidos</span>
+
+      <!-- Lista de pedidos -->
+      <div class="space-y-4">
+        <h2 class="text-xl font-bold text-orange-600 mb-2">Lista de Pedidos</h2>
+
+        <div class="space-y-3 max-h-[400px] overflow-y-auto pr-1">
+          <div
+            v-for="(pedido, index) in pedidos"
+            :key="pedido.id"
+            class="bg-white shadow-sm rounded-xl p-4 flex justify-between items-center hover:shadow-md transition duration-200 border border-orange-100"
+          >
+            <div>
+              <p class="text-sm text-gray-700 font-semibold">#{{ pedido.pedidoId }} - {{ pedido.userName }}</p>
+              <p class="text-sm text-gray-500">Valor: {{ pedido.valorPedido }}</p>
+              <p class="text-xs text-gray-400">{{ String(pedido.dataPedido).replace(/\.\d+Z$/, "") }}</p>
+            </div>
+
+            <button
+              @click="Realizar(pedido.pedidoId, pedido.isAceite)"
+              :class="pedido.isAceite
+                ? 'bg-green-600 hover:bg-green-700'
+                : 'bg-red-600 hover:bg-red-700'"
+              class="text-white text-sm px-3 py-1 rounded-lg shadow transition"
+            >
+              {{ pedido.isAceite ? 'Realizado' : 'Pendente' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+j
+    <!-- Loader -->
+    <div v-if="load" class="fixed inset-0 bg-black bg-opacity-20 z-50 flex items-center justify-center">
+      <processo />
+    </div>
+  </div>
 </template>
+
+
 
 <script setup>
 import Menu from './Menu.vue';
 import { ref } from 'vue'
+import { get } from '../../../Servicos/GetAllPedidos';
+import { onMounted } from 'vue'; 
+import processo from '../processo.vue';
+import { putPedido } from '../../../Servicos/putPedido';
+import { useRouter } from 'vue-router';
 
- 
+const menuAberto = ref(false)
+const router = useRouter();
 
-const pedidos = ref([ 
-        {
-          id: 234,
-          nome: "Kennedy Victor",
-          valor: 120000,
-       
-        },
-        {
-          id: 235,
-          nome: "Silva André",
-          valor: 120000,
-        
-        },
-        {
-          id: 235,
-          nome: "Victor Makuka",
-          valor: 40000,
-        },
-        {
-          id: 235,
-          nome: "Edvaldo João",
-          valor: 30000,
-    },
-    {
-          id: 235,
-          nome: "Edvaldo João",
-          valor: 30000,
-    },
-    {
-          id: 235,
-          nome: "Edvaldo João",
-          valor: 30000,
-    },
-    {
-          id: 235,
-          nome: "Edvaldo João",
-          valor: 30000,
-    },
-    {
-          id: 235,
-          nome: "Edvaldo João",
-          valor: 30000,
-    },
-    {
-          id: 235,
-          nome: "Edvaldo João",
-          valor: 30000,
-    },
-    {
-          id: 235,
-          nome: "Edvaldo João",
-          valor: 30000,
-    },
-    {
-          id: 235,
-          nome: "Edvaldo João",
-          valor: 30000,
-    },
-    {
-          id: 235,
-          nome: "Edvaldo João",
-          valor: 30000,
-    },
-    {
-          id: 235,
-          nome: "Edvaldo João",
-          valor: 30000,
-    },
-    {
-          id: 235,
-          nome: "Edvaldo João",
-          valor: 30000,
-    },
-    {
-          id: 235,
-          nome: "Edvaldo João",
-          valor: 30000,
-    },
-    {
-          id: 235,
-          nome: "Edvaldo João",
-          valor: 30000,
-    },
-        
- ]
- )
- 
+const pedidos = ref([]);
+const load = ref(false);
+onMounted(async () => {
+      load.value = true;
+      const response = await get();
+      pedidos.value = response;
+      load.value = false;
+});
+
+const Realizar = async (id, isAceite) => {
+  if (isAceite) {
+    return;
+  }
+  const response = await putPedido(id);
+  if (response) {
+    const pedido = pedidos.value.find(p => p.pedidoId === id);
+    pedido.isAceite = true;
+  } else {
+      alert('Erro ao realizar o pedido. Por favor, tente novamente.');
+      console.error('Erro ao realizar o pedido:', response);
+      router.push('/');
+  }
+}
 </script>

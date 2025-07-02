@@ -60,51 +60,51 @@ const router = createRouter({
 
 // Proteção de rotas
 // Proteção de rotas
-router.beforeEach(async (to, from, next) => {
-  console.log('Verificando autenticação para a rota:', to.name)
+// router.beforeEach(async (to, from, next) => {
+//   console.log('Verificando autenticação para a rota:', to.name)
 
-  const accessToken = sessionStorage.getItem('accessToken')
-  const refreshToken = localStorage.getItem('refreshToken')
+//   const accessToken = sessionStorage.getItem('accessToken')
+//   const refreshToken = localStorage.getItem('refreshToken')
 
-  if (to.meta.requiresAuth) {
-    if (!accessToken) {
-      console.warn('Access token não encontrado, buscando o refresh token...')
-      const newAccessToken = await getAccessToken(refreshToken)
-      console.log('Novo Access Token:', newAccessToken)
-      if (!newAccessToken) {
-        console.warn('Falha ao obter novo Access Token, redirecionando para a página de login...')
-        return next('/')
-      }
-    }
+//   if (to.meta.requiresAuth) {
+//     if (!accessToken) {
+//       console.warn('Access token não encontrado, buscando o refresh token...')
+//       const newAccessToken = await getAccessToken(refreshToken)
+//       console.log('Novo Access Token:', newAccessToken)
+//       if (!newAccessToken) {
+//         console.warn('Falha ao obter novo Access Token, redirecionando para a página de login...')
+//         return next('/')
+//       }
+//     }
 
-    // Verifica role se for uma rota de administrador
-    const token = sessionStorage.getItem('accessToken')
-    const role = getRoleFromJWT(token)
+//     // Verifica role se for uma rota de administrador
+//     const token = sessionStorage.getItem('accessToken')
+//     const role = getRoleFromJWT(token)
 
-    const rotasAdmin = ['dashboardAdmin', 'AdicionarAgentes', 'GerenciarAgentes']
-    if (rotasAdmin.includes(to.name) && role !== 'adm') {
-      console.warn('Usuário não tem permissão para acessar esta rota:', to.name)
-      return next('/dashboardAgente') // Redireciona para uma rota permitida
-    }
-  } else {
-    if (refreshToken) {
-      console.warn('Refresh token encontrado, buscando o token de acesso...')
-      try {
-        await getAccessToken(refreshToken)
-        const newToken = sessionStorage.getItem('accessToken')
-        if (newToken) {
-          const role = getRoleFromJWT(newToken)
-          if (to.path === '/' && newToken) {
-            return next(role === 'user' ? '/dashboardAgente' : '/dashboardAdmin')
-          }
-        }
-      } catch (error) {
-        console.error('Erro ao renovar token:', error)
-        return next('/')
-      }
-    }
-  }
+//     const rotasAdmin = ['dashboardAdmin', 'AdicionarAgentes', 'GerenciarAgentes']
+//     if (rotasAdmin.includes(to.name) && role !== 'adm') {
+//       console.warn('Usuário não tem permissão para acessar esta rota:', to.name)
+//       return next('/dashboardAgente') // Redireciona para uma rota permitida
+//     }
+//   } else {
+//     if (refreshToken) {
+//       console.warn('Refresh token encontrado, buscando o token de acesso...')
+//       try {
+//         await getAccessToken(refreshToken)
+//         const newToken = sessionStorage.getItem('accessToken')
+//         if (newToken) {
+//           const role = getRoleFromJWT(newToken)
+//           if (to.path === '/' && newToken) {
+//             return next(role === 'user' ? '/dashboardAgente' : '/dashboardAdmin')
+//           }
+//         }
+//       } catch (error) {
+//         console.error('Erro ao renovar token:', error)
+//         return next('/')
+//       }
+//     }
+//   }
 
-  return next()
-})
+//   return next()
+// })
 export default router
