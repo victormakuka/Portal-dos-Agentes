@@ -7,7 +7,11 @@ import { useRouter } from 'vue-router'; // Importa o router
 const menuAberto = ref(false);
 const router = useRouter(); // Instancia do roteador
 
-
+  const terminarSessao = () => {
+    localStorage.removeItem('refreshToken'); // Remove o token do localStorage
+    sessionStorage.removeItem('acessToken'); // Remove o token do sessionStorage
+    router.push('/Login'); // Redireciona para a página de login
+  };
 
 </script>
 
@@ -41,6 +45,7 @@ const router = useRouter(); // Instancia do roteador
         <router-link to="/Pedido" class="block hover:text-orange-100 transition">Pedido </router-link>
         <li><a href="#" class="block hover:text-orange-100 transition">Relatórios</a>
         </li>
+        <li class="block hover:text-orange-100 transition" @click="terminarSessao">Terminar Sessão</li>
       </ul>
  
     </div>
@@ -61,4 +66,3 @@ const router = useRouter(); // Instancia do roteador
 
   
 </template>
-
