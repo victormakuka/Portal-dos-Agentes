@@ -1,5 +1,5 @@
 <template>
-  <div class=" h-screen w-screen fixed">
+  <div class=" h-screen w-screen ">
     <!-- Div do header-laranja -->
     <div class="w-full h-30 fixed bg-orange-500 ">
 
@@ -12,7 +12,7 @@
         Agentes
       </div>
       <!-- Descrição do header -->
-      <div class="px-12">
+      <div class="px-17">
         <div class="text-sm  whitespace-nowrap text-white">
           Faça a gestão dos seus Subagentes editando
         </div>
@@ -24,19 +24,20 @@
     <div class="py-8 top-6 left-0 z-10">
       <Menu />
     </div>
-    <div class="flex items-center justify-center p-12 h-full w-full">
+    <div class="flex items-center justify-center pt-24"> 
       <div class="whitespace-nowrap ">
-        <div class="flex flex-row items-center justify-center bg-gray-300 h-full w-full space-x-2 p-8 rounded-md ">
+        <div class="flex flex-row items-center justify-center bg-gray-300 h-full w-full space-x-2 py-8 px-3 rounded-md ">
 
           <!-- Input de Pesquisar -->
-          <div  class="text-sm text-gray-800 rounded-xl bg-white px-2 py-2 flex flex-row items-center justify-center space-x-2">
+          <div  class="text-sm text-gray-800 rounded-xl bg-white px-4 py-2 flex flex-row items-center justify-center space-x-2">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 mt-0.5">
   <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
              </svg>
             <input 
              type="text" 
-             placeholder="Pesquisaer usuários..."
+             placeholder="Pesquisar usuários..."
              v-model="filtro"
+             class="focus:outline-none focus:ring-0  w-full "
              >
              
           </div>
@@ -63,20 +64,20 @@
             <thead>
               <tr>
                 <div class="flex items-center justify-start space-x-4 py-2">
-                <th class="px-15">ID</th>
-                <th class="px-12">NOME</th>
+                <th class="px-25 text-xs">id</th>
+                <th class=" text-xs">Nome</th>
               </div>
               </tr>
             </thead>
-            <div class="max-h-[400px] overflow-y-auto text-sm">
+            <div class="max-h-[400px] overflow-y-auto text-xs">
               <tbody>
-                <tr v-for="agente in agentes" :key="agente.id" @click="abrirPerfil(agente)" :class="[
-                'cursor-pointer hover:opacity-80 border-b border-gray-200',
+                <tr v-for="agente in resultados" :key="agente.id" @click="abrirPerfil(agente)" :class="[
+                'cursor-pointer hover:opacity-80 border-b border-orange-100',
                 
               ]">
-                  <td class="w-10 h-10 rounded-full bg-gray-400 text-white  flex items-center justify-center mt-2">{{ getIniciais(agente.nome) }}</td>
-                  <td class="px-4 py-4">{{ agente.id }}</td>
-                  <td class="px-20">{{ agente.nome }}</td>
+                  <td class="w-7 h-7 rounded-full bg-orange-400 text-white  flex items-center justify-center mt-3 ml-10">{{ getIniciais(agente.nome) }}</td>
+                  <td class="px-8 py-4">{{ agente.id }}</td>
+                  <td class="px-10">{{ agente.nome }}</td>
                 </tr>
               
               </tbody>
@@ -369,6 +370,7 @@ onMounted(async() => {
   load.value = true
   await getAllUsers()
   agentes.value = await getAllUsers()
+  resultados.value = agentes.value; // ← Mostra todos inicialmente
   load.value = false
 })
 
