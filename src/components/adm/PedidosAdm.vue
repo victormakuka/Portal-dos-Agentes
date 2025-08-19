@@ -1,29 +1,34 @@
 <template>
-  <div class="min-h-screen w-screen ">
+  <div class="h-screen w-screen ">
     <!-- Header fixo -->
-<header class="bg-orange-500 text-white px-4 py-4 fixed top-0 w-full z-10 shadow-md flex flex-col">
-  <!-- Linha com menu e título -->
-  <div class="flex items-center space-x-2 text-xl font-semibold">
-    <!-- Botão hamburguer dentro da div (mantida) -->
-    
-    <!-- Título -->
-  </div>
+    <div class="h-18 w-full space-x-2 p-3 bg-orange-500 flex items-center justify-end">
 
-  <!-- Descrição abaixo -->
-  <p class="text-sm pl-1 mt-1"
-  style="margin-left: 25px; ">Responda com um clique todas as solicitações dos seus subagentes</p>
-</header>
-    <div class="fixed py-2 top-2 left-0 z-10">
-      <Menu />
-    </div>
+<!-- Botão de voltar-->
+<div class="text-white text-xl space-x-2 font-semibold flex items-center justify-center mr-34">
+   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+<path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
 
+  </svg>
+   Pedidos
+</div>    
 
-    <!-- Espaço após header -->
-    <main class="pt-24 px-4 pb-16">
-      <!-- Componente de menu (reposicionado corretamente) -->
+ <!-- Foto do ADM -->
+<div class="w-8 h-8 rounded-full bg-white text-orange-500 text-xs font-bold flex items-center justify-center">
+          ADM
+</div>
+
+ <!-- Menu -->
+<div class="relative mb-12 mr-8">
+  <Menu/>
+</div>
+ 
+</div>
+<div class="h-18 w-full space-x-2 p-4 bg-orange-200 shadow-sm text-xs text-orange-800 font-semibold">
+  Faça a gestão dos pedidos do sistema, visualizando seus detalhes e atualizando seu status.
+</div>
 
       <!-- Lista de pedidos -->
-       <div class="flex items-center justify-center  w-full">
+       <div class="flex items-center justify-center p-4">
       <div class="space-y-4 w-full">
         <h2 class="text-xl font-bold text-orange-600 mb-2">Lista de Pedidos</h2>
         
@@ -31,8 +36,8 @@
 
         <button
           @click="statusSelecionado = ''"
-          :class="statusSelecionado === '' ? 'bg-gray-700' : 'bg-gray-500'"
-          class="text-xs px-2 py-1.5 border border-white rounded-xl text-white">
+          :class="statusSelecionado === '' ? 'bg-orange-500 text-white' : 'bg-orange-200'"
+          class="text-xs px-2 py-1.5 border border-gray-400 rounded-full text-orange-800">
            Todos
          </button>
 
@@ -40,15 +45,15 @@
 
           <!--Filtro por Realizados! -->
           <button  @click="statusSelecionado = true"
-          :class="statusSelecionado === true ? 'bg-green-700' : 'bg-green-600'"
-          class="text-xs px-2 py-1.5 border border-white rounded-xl bg-green-600 text-white">
+          :class="statusSelecionado === true ? 'bg-orange-500 text-white' : 'bg-orange-200'"
+          class="text-xs px-2 py-1.5 border border-gray-400 rounded-full text-orange-800">
             Realizado
           </button>
 
           <!-- Filtor por Pendente -->
           <button  @click="statusSelecionado = false"
-            :class="statusSelecionado === false ? 'bg-red-700' : 'bg-red-600'"
-            class="text-xs px-2 py-1.5 border border-white rounded-xl bg-red-500 text-white">
+            :class="statusSelecionado === false ? 'bg-orange-500 text-white' : 'bg-orange-200'"
+            class="text-xs px-2 py-1.5 border border-gray-400 rounded-full text-orange-800">
             Pendente
           </button>
 
@@ -91,7 +96,6 @@
         </div>
       </div>
       </div>
-    </main>
 
     <!-- Loader -->
     <div v-if="load" class="fixed inset-0 bg-black bg-opacity-20 z-50 flex items-center justify-center">

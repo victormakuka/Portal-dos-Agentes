@@ -1,111 +1,104 @@
 <template>
-  <div class=" h-screen w-screen ">
-    <!-- Div do header-laranja -->
-    <div class="w-full h-30 fixed bg-orange-500 ">
+ <div class="h-screen w-screen fixed">
 
-      <!-- Botão de voltar -->
-      <div class="text-xl font-bold px-3 py-2 flex flex-row text-white">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-          class="size-5 mt-1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+  <div class="h-18 w-full space-x-2 p-3 bg-orange-500 flex items-center justify-end">
+
+      <!-- Botão de voltar-->
+    <div class="text-white text-xl space-x-2 font-semibold flex items-center justify-center mr-34">
+         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+  <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
+
         </svg>
-        Agentes
-      </div>
-      <!-- Descrição do header -->
-      <div class="px-17">
-        <div class="text-sm  whitespace-nowrap text-white">
-          Faça a gestão dos seus Subagentes editando
-        </div>
-        <div class="text-sm text-gray-600 whitespace-nowrap text-white">e alterando os dados dos seus Subagentes.
-        </div>
-      </div>
+         Agentes
+   </div>    
+   
+       <!-- Foto do ADM -->
+    <div class="w-8 h-8 rounded-full bg-white text-orange-500 text-xs font-bold flex items-center justify-center">
+                ADM
     </div>
 
-    <div class="py-8 top-6 left-0 z-10">
-      <Menu />
+       <!-- Menu -->
+    <div class="relative mb-12 mr-8">
+        <Menu/>
+     </div>
+       
+  </div>
+     <div class="h-18 w-full space-x-2 p-4 bg-orange-200 shadow-sm text-xs text-orange-800 font-semibold">
+        Faça a gestão dos agentes do sistema, visualizando seus perfis e eliminando-os se necessário.
     </div>
-    <div class="flex items-center justify-center pt-24"> 
-      <div class="whitespace-nowrap ">
-        <div class="flex flex-row items-center justify-center bg-gray-300 h-full w-full space-x-2 py-8 px-3 rounded-md ">
 
-          <!-- Input de Pesquisar -->
-          <div  class="text-sm text-gray-800 rounded-xl bg-white px-4 py-2 flex flex-row items-center justify-center space-x-2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 mt-0.5">
+<!-- Inicio do Ranking -->
+<div class="flex items-center justify-center p-4">
+        <div class="space-y-8 w-full mt-10">
+           
+         
+          <!-- Input de busca -->
+           <div class="space-y-2">
+               <div class="px-4 py-2 rounded-md space-x-2 bg-white flex">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 mt-0.5">
   <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
              </svg>
-            <input 
-             type="text" 
-             placeholder="Pesquisar usuários..."
-             v-model="filtro"
-             class="focus:outline-none focus:ring-0  w-full "
-             >
-             
-          </div>
-          
-          <!-- Botão adicionar novo usuario -->
-           
-          <div class="text-sm text-white rounded-md bg-blue-600 px-2 py-2 flex flex-row items-center justify-center space-x-2 font-bold">
-            
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-white mt-0.5">
+                  <input 
+                  type="text"
+                  class="text-sm outline-none"
+                  placeholder="Pesquisar agentes..."
+                   v-model="filtro"
+                  >
+               </div>
+
+               <!-- Botão de adicionar -->
+               <div class="px-4 py-2 rounded-md  flex items-center justify-center bg-blue-500 text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-white mt-0.5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
               </svg>
-            <input 
-            type="button" 
-             value="Usuário"
-             @click="Adicionar()"
-           >
-           
-        </div>
-
-        </div>
-
-        <div class="bg-white p-2">
-          <table class="table-auto ">
-            <thead>
-              <tr>
-                <div class="flex items-center justify-start space-x-4 py-2">
-                <th class="px-25 text-xs">id</th>
-                <th class=" text-xs">Nome</th>
+                  <input 
+                  type="button"
+                  class="text-sm outline-none"
+                  value="Adicionar"
+                   @click="Adicionar()"
+                  >
               </div>
-              </tr>
-            </thead>
-            <div class="max-h-[400px] overflow-y-auto text-xs">
-              <tbody>
-                <tr v-for="agente in resultados" :key="agente.id" @click="abrirPerfil(agente)" :class="[
-                'cursor-pointer hover:opacity-80 border-b border-orange-100',
-                
-              ]">
-                  <td class="w-7 h-7 rounded-full bg-orange-400 text-white  flex items-center justify-center mt-3 ml-10">{{ getIniciais(agente.nome) }}</td>
-                  <td class="px-8 py-4">{{ agente.id }}</td>
-                  <td class="px-10">{{ agente.nome }}</td>
-                </tr>
-              
-              </tbody>
-            </div>
-          </table>
+           </div>
+           <!-- A tabela -->
 
-          <!-- <div class="flex items-end justify-end mr-[-3px]">
-            <button
-              class="text-sm text-gray-200 font-semibold bg-orange-500 hover:bg-orange-400 py-2 px-2 mt-4 flex items-end justify-end rounded-md">
-              Ver mais
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
-                <path fill-rule="evenodd"
-                  d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
-                  clip-rule="evenodd" />
-              </svg>
-            </button>
-          </div> -->
-        </div>
+  <div class="h-100  overflow-y-auto overflow-x-auto text-sm whitespace-nowrap">
+  <table class="table-auto w-full border-collapse rounded-lg overflow-hidden bg-white min-w-full">
+    <thead class="text-orange-700 bg-orange-200 uppercase text-xs font-semibold tracking-wide select-none ">
+      <tr>
+        <th class="text-left py-3 px-4 text-xs">Id</th>
+        <th class="text-left py-3 px-4 text-xs">Nome</th>
+      </tr>
+    </thead>
+      <tbody>
+        <tr v-for="agente in resultados" :key="agente.id" @click="abrirPerfil(agente)" :class="[
+        'cursor-pointer hover:opacity-80 border-b border-orange-100',
+        
+      ]">
+       
+          <td class="p-3 flex text-sm flex-row items-center ">
+              <div class="w-7 h-7 rounded-full bg-orange-400 text-white mr-4 flex items-center justify-center p-3">
+                 {{ getIniciais(agente.nome) }}
+              </div> 
+          {{ agente.id }} 
+         </td>
+          <td class="p-3 text-sm">{{ agente.nome }}</td>
+        </tr>
+      
+      </tbody>
+  </table>
+
+  
+ </div> 
+
+
       </div>
-    </div>
+   </div>
 
     
-    <main v-if="aparecerPerfil">
-      <verPerfil @fechar-perfil="aparecerPerfil = false" :agente="agenteSelecionado" />
-    </main>
-    <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-20 z-50" v-if="load">
+   
+    <!-- <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-20 z-50" v-if="load">
       <processo v-if="load" />
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -113,7 +106,7 @@
 import { watch } from 'vue';
 import processo from '../processo.vue'
 import { ref } from 'vue'
-import verPerfil from './verPerfil.vue'
+import verPerfil from './verPerfilAdm.vue'
 import Menu from './Menu.vue'
 import { getAllUsers } from '../../../Servicos/GetAllUsers'
 import { onMounted } from 'vue'
@@ -127,242 +120,6 @@ const agentes = ref([])
 
 
 
-// const agentes = ref([
-//   {
-//     id: 234,
-//     nome: "Kennedy João ",
-//     numero: 940292710,
-//     email: "kennedyjoao123@gmail.com",
-//     endereco: "cacuaco"
-//   },
-//   {
-//     id: 235,
-//     nome: "Silva Kizenga ",
-//     numero: 936421730,
-//     email: "silvaandre123@gmail.com",
-//     endereco: "Cacuaco"
-//   },
-//   {
-//     id: 235,
-//     nome: "Victor Makuka",
-//     numero: 939399825,
-//     email: "victormakuka1@gmail.com",
-//     endereco: "Cacuaco"
-//   },
-//   {
-//     id: 235,
-//     nome: "Edvaldo Dantas",
-//     numero: 936008338,
-//     email: "edvaldojoao123@gmail.com",
-//     endereco: "Viana"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-//   {
-//     id: 123,
-//     nome: "Abraão Eduardo",
-//     numero: 941036220,
-//     email: "abraaoeduardo123@gmail.com",
-//     endereco: "Zango 3mil"
-//   },
-
-
-
-// ])
 
 
 let load = ref(false)
@@ -375,8 +132,12 @@ onMounted(async() => {
 })
 
 function abrirPerfil(agente) {
-  agenteSelecionado.value = agente
-  aparecerPerfil.value = true
+  router.push({
+    name: 'verPerfilAdm',
+    params: {
+      agente: JSON.stringify(agente) // Serializa o objeto agente
+    }
+  })
 }
 
 function getIniciais(nome) {
@@ -406,3 +167,33 @@ function Adicionar() {
 }
 
 </script>
+
+
+<!-- A tabela -->
+<!-- 
+
+
+
+          <!-- Input de Pesquisar -->
+          <!-- <div  class="text-sm text-gray-800 rounded-xl bg-white px-4 py-2 flex flex-row items-center justify-center space-x-2">
+         
+            <input 
+             type="text" 
+             placeholder="Pesquisar usuários..."
+             class="focus:outline-none focus:ring-0  w-full "
+             >
+             
+          </div> -->
+          
+          <!-- Botão adicionar novo usuario -->
+           
+          <!-- <div class="text-sm text-white rounded-md px-2 py-2 flex flex-row items-center justify-center space-x-2 font-bold">
+            
+          
+            <input 
+            type="button" 
+             value="Usuário"
+            
+           >
+           
+        </div> -->

@@ -74,34 +74,43 @@ async function handleSubmit() {
 
 <template>
 
-  <div class=" text-black font-sans min-h-screen">
+  <div class=" h-screen w-screen">
     <!-- Cabeçalho -->
       <!-- Div do header-laranja -->
-      <div class="w-full h-30 fixed bg-orange-500  ">
-        <!-- Botão de voltar -->
-        <div class="text-xl font-bold px-3 py-2 flex flex-row text-white">
-           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mt-1.5"> 
-  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-          </svg>
-                Adicionar
-       </div>
-       <!-- Descrição do header -->
-        <div class="px-12">
-       <div class="text-sm text-white whitespace-nowrap">
-         Cadastre novos subagentes de forma rápida
-        </div>
-         <div class="text-sm text-white whitespace-nowrap ">e segura.</div>
-        </div>
-    </div>
+      <div class="h-18 w-full space-x-2 p-3 bg-orange-500 flex items-center justify-end">
+
+<!-- Botão de voltar-->
+<div class="text-white text-xl space-x-2 font-semibold flex items-center justify-center mr-34">
+   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+<path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
+
+  </svg>
+   Adicionar
+</div>    
+
+ <!-- Foto do ADM -->
+<div class="w-8 h-8 rounded-full bg-white text-orange-500 text-xs font-bold flex items-center justify-center">
+          ADM
+</div>
+
+ <!-- Menu -->
+<div class="relative mb-12 mr-8">
+  <Menu/>
+</div>
+ 
+</div>
+<div class="h-18 w-full space-x-2 p-4 bg-orange-200 shadow-sm text-xs text-orange-800 font-semibold">
+  Adicione um novo agente ao sistema, preenchendo os campos necessários e clicando em cadastrar.
+</div>
+
+
+
 
     <!-- Formulário -->
 
-    <div class="flex items-center justify-center h-full ">
-    <main class=" mt-10  py-24 px-8">
-      <div class="fixed py-2 top-6 left-0 z-10">
-            <Menu/>
-        </div>
-      <div class="">
+    <div class="flex items-center justify-center ">
+
+      <div class="space-y-4 w-full p-4 mt-9">
         <h2 class="text-2xl font-bold mb-6 text-center sm:text-left">Cadastrar novo agente</h2>
         <div class="">
 
@@ -136,8 +145,7 @@ async function handleSubmit() {
         </form>
       </div>
       </div>
-       
-    </main>
+
   </div>
   </div>
 

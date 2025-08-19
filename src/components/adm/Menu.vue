@@ -37,7 +37,7 @@ const logout = () => {
       <button
         @click="menuAberto = !menuAberto"
         :class="[
-          'absolute top-0 left-1.5 z-50 text-[23px] cursor-pointer focus:outline-none p-2 rounded',
+          'absolute top-0 left-1.5 z-20 text-[23px] cursor-pointer focus:outline-none p-2 rounded',
           menuAberto ? 'text-white bg-orange-500' : 'text-white'
         ]"
       >
@@ -47,7 +47,7 @@ const logout = () => {
       <!-- Sidebar -->
       <div
         :class="[
-          'fixed top-0 left-0 h-full lg:w-1/12 w-2/3 bg-orange-500 text-white p-4 transition-transform duration-300 ease-in-out z-40 rounded-r-md shadow-lg',
+          'fixed top-0 left-0 h-full lg:w-1/12 w-2/3 bg-orange-500 text-white p-4 transition-transform duration-300 ease-in-out z-50 rounded-r-md shadow-lg',
           menuAberto ? 'translate-x-0' : '-translate-x-full'
         ]"
         ref="sidebar"
@@ -168,7 +168,7 @@ const logout = () => {
           
           <!-- Ver Realatorio por agentes -->
           <div
-            class="cursor-pointer p-2 hover:bg-orange-500 rounded-md mt-1 flex items-center gap-2"
+            class="cursor-pointer p-2 hover:bg-orange-500 rounded-md mt-1 flex items-center gap-2 "
             @click="irPara('/RelatorioAgente')"
           >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
@@ -177,7 +177,7 @@ const logout = () => {
 
             Relatório de agente
           </div>
-        </div>
+        </div> 
        
         <!-- A linha que sepepara Definições, Terminar sessão com os demais -->
         <div class="fixed bottom-0 m-4">

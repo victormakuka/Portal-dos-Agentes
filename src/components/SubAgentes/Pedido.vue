@@ -1,65 +1,91 @@
 <template>
-    <div class="m-0 py-4 px-12 border  border-gray-300 shadow-sm w-[395px]"> <div class="text-md font-bold ">Solicitar a Recarga</div> <div class="text-sm text-gray-600">Solicite a sua recargar no seu agente de forma segura  rápida.</div></div>
+ <div class="h-screen w-screen fixed">
+    <div class="h-18 w-full space-x-2 p-3 bg-orange-500 flex items-center justify-end">
 
-   
+<!-- Botão de voltar-->
+<div class="text-white text-xl space-x-2 font-semibold flex items-center justify-center mr-34">
+   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+<path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
 
-<div class="py-24 px-8">
-     
- <div class="text-2xl font-bold flex flex-row items-end ">
-     
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-orange-600 ">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-</svg>
-{{ UserName }}
+  </svg>
+   Pedidos
+</div>    
+
+ <!-- Foto do ADM -->
+<div class="w-8 h-8 rounded-full bg-white text-orange-500 text-xs font-bold flex items-center justify-center">
+          VM
 </div>
 
-  <div class=" mt-8 space-x-2">
-    <select name="valor" id="valor" class="border border-orange-600 text-sm text-gray-600 rounded-sm w-[150px] py-2 px-2" v-model="valor">
-        <option value="">Selecione o valor</option>
-        <option v-for="valor in [10000, 25000, 50000, 100000]" :key="valor" :value="valor">
-            {{ valor.toLocaleString('pt-PT', { style: 'currency', currency: 'AOA' }) }}
-        </option>
-    </select>
-    <input 
-    type="submit"
-    value="Solicitar"
-    class="bg-orange-600 text-white text-sm rounded-sm py-2 px-2 w-[100px]"
-    @click="FazerPedido"
-    >
+ <!-- Menu -->
+<div class="relative mb-12 mr-8">
+  <MenuAgente/>
 </div>
+ 
+</div>
+<div class="h-18 w-full space-x-2 p-4 bg-orange-200 shadow-sm text-xs text-orange-800 font-semibold">
+  Solicite os teus carregamentos de forma rápida e segura ao seu Agente e poderás analisar os teus pedidos Realizados e Pendentes.
 </div>
 
-<div class="py-8 px-8">
-    <div class="text-2xl font-bold flex flex-row items-end ">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-orange-600 ">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-        </svg>
-        Meus Pedidos
-    </div>
-    <div class="mt-4">
-        <table class="table-auto w-full">
-            <thead>
+    <div class="flex items-center justify-center p-4 ">
+      <div class="w-full space-y-4">
+           <!-- O select do pedido -->
+            <div class="space-x-2 mt-12">
+                <select name="valor" id="valor" class="border border-orange-600 text-sm text-gray-600 rounded-sm  py-0.5 px-2 outline-none" v-model="valor">
+                        <option value="">Selecione o valor</option>
+                        <option v-for="valor in [10000, 25000, 50000, 100000]" :key="valor" :value="valor">
+                              {{ valor.toLocaleString('pt-PT', { style: 'currency', currency: 'AOA' }) }}
+                        </option>
+             </select>
+                 <input 
+                    type="submit"
+                    value="Solicitar"
+                    class="bg-orange-500 text-white text-sm rounded-sm py-0.5 px-2"
+                 @click="FazerPedido"
+             >
+        </div>
+        <!-- Meus pedidos -->
+         <div>
+            <p class="text-md text-orange-500 font-semibold">Meus Pedidos</p>
+         </div>
+
+         <!-- Tabela dos pedidos -->
+         <div class="h-100  overflow-y-auto overflow-x-auto text-sm whitespace-nowrap">
+         <table class="table-auto w-full border-collapse overflow-hidden rounded-lg  bg-white min-w-full "> 
+            <thead class="text-orange-700 bg-orange-200  uppercase text-xs font-semibold tracking-wide select-none ">
                 <tr>
-                    <th class="px-2 py-1 text-left">ID</th>
-                    <th class="px-2 py-1 text-left">Valor</th>
-                    <th class="px-2 py-1 text-left">Data</th>
-                    <th class="px-2 py-1 text-left">Status</th>
+                    <th class="text-left py-3 px-4">Valor</th>
+                    <th class="text-left py-3 px-4">Data</th>
+                    <th class="text-left py-3 px-4">Status</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(pedido, index) in pedidos" :key="pedido.id" :class="[index % 2 === 0 ? 'bg-gray-100' : 'bg-white']">
-                    <td class="px-2 py-1">{{ pedido.pedidoId }}</td>
-                    <td class="px-2 py-1">{{ pedido.valorPedido.toLocaleString('pt-PT', { style: 'currency', currency: 'AOA' }) }}</td>
-                    <td class="px-2 py-1">{{ new Date(pedido.dataPedido).toISOString().split('.')[0]}}</td>
-                    <td class="px-2 py-1">{{ pedido.isAceite ? 'Realizado' : 'Pendente' }}</td>
+                <tr v-for="pedido in pedidos" :key="pedido.id" class="border-b border-orange-200">
+                    <td class="p-3">{{ pedido.valorPedido.toLocaleString('pt-PT', { style: 'currency', currency: 'AOA' }) }}</td>
+                    <td class="p-3">{{ new Date(pedido.dataPedido).toISOString().split('.')[0]}}</td>
+                    <td class="p-3">{{ pedido.isAceite ? 'Realizado' : 'Pendente' }}</td>
                 </tr>
             </tbody>
         </table>
     </div>
+      </div>
+    </div>
+
 </div>
+
+
+
+
+<div class="py-8 px-8">
+   
+    <div class="mt-4">
+        
+    </div>
+</div>
+ 
 </template>
 
 <script setup>
+import MenuAgente from './MenuAgente.vue';
 import { onMounted, reactive, ref } from 'vue'
 import { post } from '../../../Servicos/PostPedido';
 import { getData } from '../../../Servicos/GetData';

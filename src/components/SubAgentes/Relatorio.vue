@@ -1,32 +1,32 @@
 <template>
-  <div class="h-screen w-screen fixed">
-    <div class="h-18 w-full space-x-2 p-3 bg-orange-500 flex items-center justify-end">
+    <div class="h-screen w-screen">
+        <div class="h-18 w-full space-x-2 p-3 bg-orange-500 flex items-center justify-end">
 
 <!-- Botão de voltar-->
-<div class="text-white text-xl space-x-2 font-semibold flex items-center justify-center mr-20 whitespace-nowrap">
+<div class="text-white text-xl space-x-2 font-semibold flex items-center justify-center mr-34">
    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
 <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
 
   </svg>
-   Todos Relatórios
+  Relatórios
 </div>    
 
  <!-- Foto do ADM -->
 <div class="w-8 h-8 rounded-full bg-white text-orange-500 text-xs font-bold flex items-center justify-center">
-          ADM
+         VM
 </div>
 
  <!-- Menu -->
 <div class="relative mb-12 mr-8">
-  <Menu/>
+  <MenuAgente/>
 </div>
  
 </div>
-<div class="h-18 w-full space-x-2 p-4 bg-orange-200 shadow-sm text-xs text-orange-800 font-semibold">
-Veja os relatórios de todos os agentes do sistema, filtrando por mês e dia para uma análise mais detalhada.
+<div class="h-18 w-full space-x-2 py-1 px-3 bg-orange-200 shadow-sm text-xs text-orange-800 font-semibold">
+Aqui você pode visualizar o relatório das suas compras organizadas por ano, mês e dia. Utilize os filtros para selecionar o período desejado e acompanhe o histórico detalhado das suas transações.
 </div>
-
-      <div class="flex items-center justify-center p-4">
+      
+<div class="flex items-center justify-center p-4">
         <div class="space-y-4 w-full mt-10">
           <h2 class="text-xl font-bold text-orange-600 mb-2 whitespace-nowrap flex items-start justify-start">
             Ver todos relatórios
@@ -66,7 +66,6 @@ Veja os relatórios de todos os agentes do sistema, filtrando por mês e dia par
               <thead class="text-orange-700 bg-orange-200 uppercase text-xs font-semibold tracking-wide select-none">
                 <tr>
                   <th class="text-xs text-left py-3 px-4">Dia</th>
-                  <th class="text-xs text-left py-3 px-4">Agente</th>
                   <th class="text-xs text-left py-3 px-4">Valor</th>
                   <th class="text-xs text-left py-3 px-4">Hora</th>
                 </tr>
@@ -74,7 +73,6 @@ Veja os relatórios de todos os agentes do sistema, filtrando por mês e dia par
               <tbody class="bg-white">
                 <tr v-for="item in relatoriosFiltrados" :key="item.id" class="border-b border-orange-100">
                   <td class="p-3">{{ item.dia }}</td>
-                  <td class="p-3">{{ item.agente }}</td>
                   <td class="p-3">{{ item.valor }}</td>
                   <td class="p-3">{{ item.hora }}</td>
                 </tr>
@@ -83,13 +81,14 @@ Veja os relatórios de todos os agentes do sistema, filtrando por mês e dia par
           </div>
         </div>
       </div>
-  </div>
+</div>
 </template>
 
 <script setup>
+import MenuAgente from './MenuAgente.vue';
 import { ref, computed, onMounted } from 'vue'
-import Menu from '@/components/adm/Menu.vue'
 import { GetRelatorioMes } from '../../../Servicos/getRelatoriosMes'
+
 
 // Estados
 const relatorios = ref([])
@@ -105,6 +104,7 @@ const meses = [
 
 // Dias do mês (1 a 31)
 const diasNoMes = Array.from({ length: 31 }, (_, i) => i + 1)
+
 
 // Carrega relatórios do mês
 const getRelatoriosMes = async () => {
