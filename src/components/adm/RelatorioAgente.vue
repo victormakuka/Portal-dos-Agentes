@@ -84,13 +84,13 @@ Veja os relatórios de todos os agentes do sistema, filtrando por mês e dia par
              </thead>
             
                 <tbody>
-                    <tr
-                         v-for="relatorio in relatorios" :key="relatorio.dia"
-                        class="hover:bg-gray-50 border-b border-orange-200" >
-                             <td class="p-3">{{ relatorio.dia }}</td>
-                             <td class="p-3">{{ relatorio.valor }}</td>
-                             <td class="p-3">{{ relatorio.hora }}</td>
-                     </tr>
+<tr
+    v-for="relatorio in relatorios" :key="relatorio.dia"
+    class="hover:bg-gray-50 border-b border-orange-200" >
+         <td class="p-3">{{ relatorio.dia }}</td>
+         <td class="p-3">{{ relatorio.valor }}</td>
+         <td class="p-3">{{ relatorio.hora }}</td>
+ </tr>
                </tbody>
             
           </table>
