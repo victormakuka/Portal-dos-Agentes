@@ -10,6 +10,9 @@ import verAgentes from '@/components/adm/verAgentes.vue'
 import PedidosAdm from '@/components/adm/PedidosAdm.vue'
 import todosRelatorios from '@/components/adm/todosRelatorios.vue'
 import RelatorioAgente from '@/components/adm/RelatorioAgente.vue'
+import verPerfilAgente from '@/components/SubAgentes/verPerfilAgente.vue'
+import verPerfilAdm from '@/components/adm/verPerfilAdm.vue'
+import Relatorio from '@/components/SubAgentes/Relatorio.vue'
 // Definição das rotas
 const routes = [
   {
@@ -64,6 +67,28 @@ const routes = [
     path: '/RelatorioAgente',
     name: 'RelatorioAgente',
     component: RelatorioAgente,
+    meta: { requiresAuth: true },
+
+  },
+  {
+    path: '/verPerfilAgente',
+    name: 'verPerfilAgente',
+    component: verPerfilAgente,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/verPerfilAdm/:agente',
+    name: 'verPerfilAdm',
+    component: verPerfilAdm,
+    props: route => ({
+      agente: JSON.parse(route.params.agente)
+    }),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/Relatorio',
+    name: 'Relatorio',
+    component: Relatorio,
     meta: { requiresAuth: true },
 
   }
