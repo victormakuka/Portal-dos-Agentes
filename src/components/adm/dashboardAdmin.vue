@@ -19,8 +19,6 @@ const buscarDados = async () => {
   }
 };
 
-
-
 // Registrar módulos do Chart.js
 ChartJS.register(Title, Tooltip, Legend, LineElement, PointElement, CategoryScale, LinearScale, Filler)
 
