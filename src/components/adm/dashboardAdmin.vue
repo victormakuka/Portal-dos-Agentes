@@ -9,31 +9,64 @@ import {
   LineElement, PointElement, CategoryScale, LinearScale, Filler
 } from 'chart.js'
 
-import { getTotal, getRanking, getTotalUsers, getNewUsers } from '../../../Servicos/DashBoard';
+import { getTotal, getRanking, getTotalUsers, getNewUsers, dashBoardDadosMes } from '../../../Servicos/DashBoard';
 import { ref, onMounted } from 'vue';
-
+import processo from '../processo.vue';
 const total = ref(0);
 const ranking = ref([]);
 const totalUsers = ref(0);
 const newUsers = ref(0);
+const dadosMes = ref({})
+const chartData = ref({
+  labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+  datasets: [{
+    label: 'Vendas',
+    data: [], // será preenchido após carregar os dados
+    borderColor: '#f97316',
+    backgroundColor: 'rgba(249, 115, 22, 0.2)',
+    fill: true,
+    tension: 0.4
+  }]
+});
+
+const p = ref(false);
 
 onMounted(async () => {
   try {
-    const [totalResult, rankingResult, totalUsersResult, newUsersResult] = await Promise.all([
+    p.value = true;
+    const [totalResult, rankingResult, totalUsersResult, newUsersResult, dashBoardDadosMesResult] = await Promise.all([
       getTotal(),
       getRanking(),
       getTotalUsers(),
-      getNewUsers()
+      getNewUsers(),
+      dashBoardDadosMes()
     ]);
 
+    dadosMes.value = dashBoardDadosMesResult;
     total.value = totalResult;
     ranking.value = rankingResult;
     totalUsers.value = totalUsersResult;
     newUsers.value = newUsersResult;
+
+    chartData.value = {
+      labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+      datasets: [{
+        label: 'Vendas',
+        data: mesesOrdem.map(mes => dadosMes.value[mes] || 0),
+        borderColor: '#f97316',
+        backgroundColor: 'rgba(249, 115, 22, 0.2)',
+        fill: true,
+        tension: 0.4
+      }]
+    };
+
+    p.value = false;
   } catch (error) {
+    p.value = false;
     console.error("Erro ao carregar os dados:", error);
   }
 });
+
 
 
 const router = useRouter();
@@ -41,18 +74,10 @@ const router = useRouter();
 // Registrar módulos do Chart.js
 ChartJS.register(Title, Tooltip, Legend, LineElement, PointElement, CategoryScale, LinearScale, Filler)
 
-// Dados do gráfico
-const chartData = {
-  labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul'],
-  datasets: [{
-    label: 'Vendas',
-    data: [12000, 19000, 30000, 25000, 40000, 32000, 35000],
-    borderColor: '#f97316',
-    backgroundColor: 'rgba(249, 115, 22, 0.2)',
-    fill: true,
-    tension: 0.4
-  }]
-}
+const mesesOrdem = [
+  'janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho',
+  'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'
+];
 
 const chartOptions = {
   responsive: true,
@@ -74,7 +99,7 @@ const chartOptions = {
  <div class="relative mb-12 mr-65">
     <Menu/>
  </div>
-
+<processo v-if="p" />
 
 
     <!-- Notificações -->
@@ -188,9 +213,9 @@ const chartOptions = {
             <div class="text-md py-4  font-bold  text-gray-500 max-h-[280px] space-y-4 overflow-y-auto">
             Ranking dos Agentes
             
-          <div class="py-4 space-y-4" v-for="(item, index) in ranking" :key="item.userId">
+          <div class="py-4 space-y-4">
             <!-- 1 -->
-           <div class="flex row space-x-14">
+           <div class="flex row space-x-14" v-for="(item, index) in ranking" :key="item.userId">
             <div class="w-7 h-7 rounded-full  text-white bg-green-500 text-xs font-bold flex items-center justify-center">
                {{ index + 1 }}
           </div>

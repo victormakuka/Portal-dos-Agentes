@@ -74,7 +74,7 @@ Veja os relatórios de todos os agentes do sistema, filtrando por mês e dia par
               <tbody class="bg-white">
                 <tr v-for="item in relatoriosFiltrados" :key="item.id" class="border-b border-orange-100">
                   <td class="p-3">{{ item.dia }}</td>
-                  <td class="p-3">{{ item.agente }}</td>
+                  <td class="p-3">{{ item.username }}</td>
                   <td class="p-3">{{ item.valor }}</td>
                   <td class="p-3">{{ item.hora }}</td>
                 </tr>
