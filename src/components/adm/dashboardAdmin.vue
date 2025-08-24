@@ -9,15 +9,34 @@ import {
   LineElement, PointElement, CategoryScale, LinearScale, Filler
 } from 'chart.js'
 
-const router = useRouter();
+import { getTotal, getRanking, getTotalUsers, getNewUsers } from '../../../Servicos/DashBoard';
+import { ref, onMounted } from 'vue';
 
-const buscarDados = async () => {
-  const userData = await getData();
-  console.log("Dados do usuário:", userData);
-  if (!userData) {
-    router.push('/');
+const total = ref(0);
+const ranking = ref([]);
+const totalUsers = ref(0);
+const newUsers = ref(0);
+
+onMounted(async () => {
+  try {
+    const [totalResult, rankingResult, totalUsersResult, newUsersResult] = await Promise.all([
+      getTotal(),
+      getRanking(),
+      getTotalUsers(),
+      getNewUsers()
+    ]);
+
+    total.value = totalResult;
+    ranking.value = rankingResult;
+    totalUsers.value = totalUsersResult;
+    newUsers.value = newUsersResult;
+  } catch (error) {
+    console.error("Erro ao carregar os dados:", error);
   }
-};
+});
+
+
+const router = useRouter();
 
 // Registrar módulos do Chart.js
 ChartJS.register(Title, Tooltip, Legend, LineElement, PointElement, CategoryScale, LinearScale, Filler)
@@ -102,13 +121,13 @@ const chartOptions = {
          <div class="bg-white rounded-md h-25 shadow-md">
           <div class="py-2 px-4">
             <p class="text-gray-700 text-sm">Vendas Totais</p>
-            <p class="py-1 text-2xl font-semibold">120.000kz</p>
+            <p class="py-1 text-2xl font-semibold">{{ total.total }}</p>
             <div class="flex row flex-row space-x-1">
 
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-green-500 mt-0.9">
   <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
              </svg>
-            <div class="text-sm text-green-500 ">12% </div>
+            <div class="text-sm text-green-500 ">{{ total.variacao }}%</div>
               <div class="text-sm text-black whitespace-nowrap">vs mês passado</div>
              </div>
           </div>
@@ -119,12 +138,12 @@ const chartOptions = {
          <div class="bg-white rounded-md h-25 shadow-md">
           <div class="py-2 px-4">
             <p class="text-gray-700 text-sm">Novos Agentes</p>
-            <p class="py-1 text-2xl font-semibold">3</p>
+            <p class="py-1 text-2xl font-semibold">{{ newUsers.mesAtual }}</p>
             <div class="flex row flex-row space-x-1">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-green-500">
 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
            </svg>
-          <div class="text-sm text-green-500 ">2% </div>
+          <div class="text-sm text-green-500 ">{{ newUsers.percentual }}%</div>
             <div class="text-sm text-black whitespace-nowrap">vs mês passado</div>
            </div>
           </div>
@@ -169,98 +188,14 @@ const chartOptions = {
             <div class="text-md py-4  font-bold  text-gray-500 max-h-[280px] space-y-4 overflow-y-auto">
             Ranking dos Agentes
             
-          <div class="py-4 space-y-4">
+          <div class="py-4 space-y-4" v-for="(item, index) in ranking" :key="item.userId">
             <!-- 1 -->
            <div class="flex row space-x-14">
             <div class="w-7 h-7 rounded-full  text-white bg-green-500 text-xs font-bold flex items-center justify-center">
-               1
+               {{ index + 1 }}
           </div>
-            <div class="text-md font-semibold">Victor Makuka</div>
-
-        </div>
-
-          <!-- 2 -->
-          <div class="flex row space-x-14">
-             <div class="w-7 h-7 rounded-full  text-white bg-green-500 text-sm font-bold flex items-center justify-center">
-                 2
-             </div>
-           <div class="text-md font-semibold">Edvaldo João</div>
-
-        </div>
-
-        <!-- 3 -->
-          <div class="flex row space-x-14">
-             <div class="w-7 h-7 rounded-full  text-white bg-green-500 text-sm font-bold flex items-center justify-center">
-                 3
-             </div>
-           <div class="text-md font-semibold">Kennedy Victor</div>
-
-        </div>
-
- 
-        <!-- 4 -->
-          <div class="flex row space-x-14">
-             <div class="w-7 h-7 rounded-full  text-white bg-orange-700 text-sm font-bold flex items-center justify-center">
-                4
-             </div>
-           <div class="text-md font-semibold">Jesus Garcia</div>
-
-        </div>
-
-        <!-- 5 -->
-         <div class="flex row space-x-14">
-             <div class="w-7 h-7 rounded-full  text-white bg-orange-800 text-sm font-bold flex items-center justify-center">
-                5
-             </div>
-           <div class="text-md font-semibold">Abílio Junior</div>
-
-        </div>
-
-        <!-- 6 -->
-
-         <div class="flex row space-x-14">
-             <div class="w-7 h-7 rounded-full  text-white bg-orange-800 text-sm font-bold flex items-center justify-center">
-                6
-             </div>
-           <div class="text-md font-semibold">Aricleni dos Santos</div>
-
-        </div>
-
-         <!-- 7 -->
-           <div class="flex row space-x-14">
-             <div class="w-7 h-7 rounded-full  text-white bg-orange-800 text-sm font-bold flex items-center justify-center">
-                 7
-             </div>
-           <div class="text-md font-semibold">Abraão Eduardo</div>
-
-        </div>
-
-          <!-- 8 -->
-
-           <div class="flex row space-x-14">
-             <div class="w-7 h-7 rounded-full  text-white bg-orange-800 text-sm font-bold flex items-center justify-center">
-                 8
-             </div>
-           <div class="text-md font-semibold">Nvemba Guilherme</div>
-
-        </div>
-
-        <!-- 9 -->
-          <div class="flex row space-x-14">
-             <div class="w-7 h-7 rounded-full  text-white bg-orange-800 text-sm font-bold flex items-center justify-center">
-                 9
-             </div>
-           <div class="text-md font-semibold">Silva Kizenga</div>
-
-        </div>
-
-        <!-- 10 -->
-          <div class="flex row space-x-14">
-             <div class="w-7 h-7 rounded-full  text-white bg-orange-800 text-sm font-bold flex items-center justify-center">
-                 10
-             </div>
-           <div class="text-md font-semibold">André Silva</div>
-
+            <div class="text-md font-semibold">{{ item.userName }}</div>
+            <div class="text-md font-semibold">{{ item.total }}</div>
         </div>
 
 
