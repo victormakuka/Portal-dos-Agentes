@@ -146,12 +146,16 @@ const chartOptions = {
          <div class="bg-white rounded-md h-25 shadow-md">
           <div class="py-2 px-4">
             <p class="text-gray-700 text-sm">Vendas Totais</p>
+<<<<<<< HEAD
               <div class="flex items-center justify-between">
             <p class="py-1 text-2xl font-semibold">{{ total.total }}</p>
            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-8 text-orange-500">
   <path d="M2.25 2.25a.75.75 0 0 0 0 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 0 0-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 0 0 0-1.5H5.378A2.25 2.25 0 0 1 7.5 15h11.218a.75.75 0 0 0 .674-.421 60.358 60.358 0 0 0 2.96-7.228.75.75 0 0 0-.525-.965A60.864 60.864 0 0 0 5.68 4.509l-.232-.867A1.875 1.875 0 0 0 3.636 2.25H2.25ZM3.75 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM16.5 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" />
 </svg>
             </div>
+=======
+            <p class="py-1 text-2xl font-semibold">{{ total.total }}</p>
+>>>>>>> 43afa04ef53c78ca0cf16b6281b25689a2a97cf9
             <div class="flex row flex-row space-x-1">
 
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-green-500 mt-0.9">
@@ -168,19 +172,28 @@ const chartOptions = {
          <div class="bg-white rounded-md h-25 shadow-md">
           <div class="py-2 px-4">
             <p class="text-gray-700 text-sm">Novos Agentes</p>
+<<<<<<< HEAD
             <div class="flex items-center justify-between">
             <p class="py-1 text-2xl font-semibold">{{ newUsers.mesAtual }}</p>
              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-8 text-orange-500">
   <path d="M5.25 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM2.25 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM18.75 7.5a.75.75 0 0 0-1.5 0v2.25H15a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H21a.75.75 0 0 0 0-1.5h-2.25V7.5Z" />
 </svg>
 </div>
+=======
+            <p class="py-1 text-2xl font-semibold">{{ newUsers.mesAtual }}</p>
+>>>>>>> 43afa04ef53c78ca0cf16b6281b25689a2a97cf9
             <div class="flex row flex-row space-x-1">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-green-500">
 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
            </svg>
+<<<<<<< HEAD
            
           <div class="text-sm text-green-500 ">{{ newUsers.percentual }}%</div>
  <div class="text-sm text-black whitespace-nowrap">vs mês passado</div>
+=======
+          <div class="text-sm text-green-500 ">{{ newUsers.percentual }}%</div>
+            <div class="text-sm text-black whitespace-nowrap">vs mês passado</div>
+>>>>>>> 43afa04ef53c78ca0cf16b6281b25689a2a97cf9
            </div>
            <div class="flex items-center justify-end">
           
@@ -243,6 +256,7 @@ const chartOptions = {
           <div class="py-4 space-y-4 max-h-[280px] space-y-4 overflow-y-auto">
             <!-- 1 -->
            <div class="flex row space-x-14" v-for="(item, index) in ranking" :key="item.userId">
+<<<<<<< HEAD
             <div class="bg-white border-l-4 rounded-md border-orange-600 pl-4 flex items-center mb-4 space-x-4">
             <div class="w-9 h-9 rounded-full  text-white bg-green-500 text-xs font-bold flex items-center justify-center">
                {{ index + 1 }}
@@ -255,6 +269,17 @@ const chartOptions = {
         </div>
 
       </div>
+=======
+            <div class="w-7 h-7 rounded-full  text-white bg-green-500 text-xs font-bold flex items-center justify-center">
+               {{ index + 1 }}
+          </div>
+            <div class="text-md font-semibold">{{ item.userName }}</div>
+            <div class="text-md font-semibold">{{ item.total }}</div>
+        </div>
+
+
+           
+>>>>>>> 43afa04ef53c78ca0cf16b6281b25689a2a97cf9
 
     </div>
     
@@ -267,7 +292,7 @@ const chartOptions = {
 
         </div>
       </div>
-  </div>
+  
 
 
   <!-- <main class="py-9">
