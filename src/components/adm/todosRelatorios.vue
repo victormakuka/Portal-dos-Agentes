@@ -3,12 +3,12 @@
     <div class="h-18 w-full space-x-2 p-3 bg-orange-500 flex items-center justify-end">
 
 <!-- Botão de voltar-->
-<div class="text-white text-xl space-x-2 font-semibold flex items-center justify-center mr-20 whitespace-nowrap">
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+      <div class="absolute left-4  transform  text-white text-xl space-x-2 font-semibold flex items-center justify-center">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
 <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
 
   </svg>
-   Todos Relatórios
+  Todos Relatórios
 </div>    
 
  <!-- Foto do ADM -->
@@ -74,7 +74,7 @@ Veja os relatórios de todos os agentes do sistema, filtrando por mês e dia par
               <tbody class="bg-white">
                 <tr v-for="item in relatoriosFiltrados" :key="item.id" class="border-b border-orange-100">
                   <td class="p-3">{{ item.dia }}</td>
-                  <td class="p-3">{{ item.agente }}</td>
+                  <td class="p-3">{{ item.username }}</td>
                   <td class="p-3">{{ item.valor }}</td>
                   <td class="p-3">{{ item.hora }}</td>
                 </tr>
