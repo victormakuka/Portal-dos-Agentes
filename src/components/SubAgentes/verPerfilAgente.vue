@@ -13,15 +13,15 @@
       <div class="w-23 h-23 rounded-full bg-white flex items-center justify-center">
         <div class="w-22 h-22 rounded-full bg-orange-500 flex items-center justify-center">
           <div class="w-21 h-21 rounded-full bg-white text-orange-500 text-xl font-bold flex items-center justify-center">
-             VM
+             <span>{{ getInitials(data.nome) }}</span>
           </div>
         </div>
       </div>
       <!-- O nome do agente -->
-      <p class="text-white text-xl font-bold">Victor Makuka</p>
+      <p class="text-white text-xl font-bold">{{ data.nome }}</p>
       <!-- Id do agente -->
        <div class="text-white text-sm bg-orange-400 rounded-full p-1.5">
-          ID: 1234 
+          ID: {{ data.id }} 
        </div>
      
        </div>
@@ -38,7 +38,7 @@
                </div>
                     <div class="flex flex-col px-4">
                       <div class="font-semibold text-sm text-gray-600">Telefone</div>
-                      <p class="text-md font-semibold">+244 939399825</p>
+                      <p class="text-md font-semibold">{{ data.telefone }}</p>
                 </div>
         </div>
 
@@ -52,7 +52,7 @@
                 </div>
                     <div class="flex flex-col px-4">
                          <div class="font-semibold text-sm text-gray-600">E-mail</div>
-                         <p class="text-md font-semibold">victormakuka1@gmail.com</p>
+                         <p class="text-md font-semibold">{{ data.email }}</p>
                 </div>
             </div>
            
@@ -65,7 +65,7 @@
                </div>
                 <div class="flex flex-col px-4">
                    <div class="font-semibold text-sm text-gray-600">Endereço</div>
-                    <p class="text-md font-semibold">Luanda Cacuaco</p>
+                    <p class="text-md font-semibold">{{ data.endereco }}</p>
              </div>
             </div>
 
@@ -87,5 +87,19 @@
 </template>
 
 <script setup>
+  import { onMounted, ref } from 'vue';
+  import { getData } from '../../../Servicos/GetData';
 
+  const data = ref({});
+  onMounted(async () => {
+    data.value = await getData();
+    console.log(data);
+  });
+  function getInitials(nome) {
+    if (!nome) return '';
+    return nome
+      .split(' ')
+      .map(parte => parte.charAt(0).toUpperCase())
+      .join('');
+  }
 </script>
