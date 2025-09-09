@@ -110,10 +110,10 @@ const chartOptions = {
         ADM
       </div>
     </div>
-<!--   -->
 
+    <!-- Dashboard Content -->
     <div class="flex items-center justify-center p-4">
-      <div class="space-y-4 max-h-[620px]  overflow-y-auto"> 
+      <div class="space-y-4 max-h-[720px] overflow-y-auto">
         
         <!-- Card Boas-vindas -->
         <div class="bg-orange-500 h-50 rounded-md px-4 py-4">
@@ -128,11 +128,9 @@ const chartOptions = {
             <p class="text-gray-700 text-sm">Vendas Totais</p>
             <div class="flex items-center justify-between">
               <p class="py-1 text-2xl font-semibold">{{ total.total }}</p>
-
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-8 text-orange-500">
-  <path d="M2.25 2.25a.75.75 0 0 0 0 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 0 0-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 0 0 0-1.5H5.378A2.25 2.25 0 0 1 7.5 15h11.218a.75.75 0 0 0 .674-.421 60.358 60.358 0 0 0 2.96-7.228.75.75 0 0 0-.525-.965A60.864 60.864 0 0 0 5.68 4.509l-.232-.867A1.875 1.875 0 0 0 3.636 2.25H2.25ZM3.75 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM16.5 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" />
-</svg>
-
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-8 text-orange-500">
+                <path d="M2.25 2.25a.75.75..." />
+              </svg>
             </div>
             <div class="flex flex-row space-x-1">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-green-500 mt-0.9">
@@ -150,13 +148,9 @@ const chartOptions = {
             <p class="text-gray-700 text-sm">Novos Agentes</p>
             <div class="flex items-center justify-between">
               <p class="py-1 text-2xl font-semibold">{{ newUsers.mesAtual }}</p>
-
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-8 text-orange-500">
-  <path d="M5.25 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM2.25 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM18.75 7.5a.75.75 0 0 0-1.5 0v2.25H15a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H21a.75.75 0 0 0 0-1.5h-2.25V7.5Z" />
-</svg>
-
-
-              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-8 text-orange-500">
+                <path d="M5.25 6.375a4.125..." />
+              </svg>
             </div>
             <div class="flex flex-row space-x-1">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-green-500">
@@ -174,11 +168,16 @@ const chartOptions = {
             <p class="text-gray-700 text-sm">Taxa de Conversão</p>
             <div class="flex items-center justify-between">
               <p class="py-1 text-2xl font-semibold">28,6%</p>
-              
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-8 text-orange-500">
-  <path fill-rule="evenodd" d="M11.99 2.243a4.49 4.49 0 0 0-3.398 1.55 4.49 4.49 0 0 0-3.497 1.306 4.491 4.491 0 0 0-1.307 3.498 4.491 4.491 0 0 0-1.548 3.397c0 1.357.6 2.573 1.548 3.397a4.491 4.491 0 0 0 1.307 3.498 4.49 4.49 0 0 0 3.498 1.307 4.49 4.49 0 0 0 3.397 1.549 4.49 4.49 0 0 0 3.397-1.549 4.49 4.49 0 0 0 3.497-1.307 4.491 4.491 0 0 0 1.306-3.497 4.491 4.491 0 0 0 1.55-3.398c0-1.357-.601-2.573-1.549-3.397a4.491 4.491 0 0 0-1.307-3.498 4.49 4.49 0 0 0-3.498-1.307 4.49 4.49 0 0 0-3.396-1.549Zm3.53 7.28a.75.75 0 0 0-1.06-1.06l-6 6a.75.75 0 1 0 1.06 1.06l6-6Zm-5.78-.905a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25Zm4.5 4.5a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25Z" clip-rule="evenodd" />
-</svg>
-
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-8 text-orange-500">
+                <path d="M12 3c-4.243..." />
+              </svg>
+            </div>
+            <div class="flex flex-row space-x-1">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-red-500">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0L4.5 13.5M12 21V3" />
+              </svg>
+              <div class="text-sm text-red-500">-2.4%</div>
+              <div class="text-sm text-black whitespace-nowrap">vs mês passado</div>
             </div>
             <div class="flex flex-row space-x-1">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-red-500">
@@ -192,13 +191,13 @@ const chartOptions = {
 
         <!-- Ranking dos Agentes -->
         <div class="bg-white rounded-md py-4 px-4 shadow-md">
-          <p clEass="text-gray-700 text-sm font-bold">Ranking dos Agentes</p>
+          <p class="text-gray-700 text-sm font-bold">Ranking dos Agentes</p>
           <div v-for="(item, index) in ranking" :key="item.userId" class="flex row space-x-14">
-            <div class="bg-white border-l-4 rounded-md border-orange-600 pl-4 flex items-center mb-4  space-x-4">
+            <div class="bg-white border-l-4 rounded-md border-orange-600 pl-4 flex items-center mb-4 space-x-4">
               <div class="w-9 h-9 rounded-full text-white bg-green-500 text-xs font-bold flex items-center justify-center">
                 {{ index + 1 }}
               </div>
-              <div class="flex items-center justify-between  w-50">
+              <div class="flex items-center justify-between w-64">
                 <div class="text-md font-semibold whitespace-nowrap">{{ item.userName }}</div>
                 <div class="text-md font-semibold">{{ item.total }}</div>
               </div>
